@@ -52,7 +52,7 @@ def handle_slack_event(slack_event, context):
     elif text == '3':
         msg = '給料ログ\n{}'.format(pay_msg.paylog())
     else:
-        msg = '\クエー/'
+        msg = '\\クエー/'
     
     # メッセージの投稿
     post_message_to_slack_channel(msg, slack_event.get("event").get("channel"))
@@ -103,8 +103,8 @@ class MakePayMsg():
     # ---Googleカレンダーからイベントを取り出す---
     def get_event(self):
         creds = None
-        if os.path.exists('/tmp/token.pickle'):
-            with open('/tmp/token.pickle', 'rb') as token:
+        if os.path.exists('token.pickle'):
+            with open('token.pickle', 'rb') as token:
                 creds = pickle.load(token)
         # If there are no (valid) credentials available, let the user log in.
         if not creds or not creds.valid:
@@ -130,7 +130,7 @@ class MakePayMsg():
     # ---今年分の給料ログを作成する---
     def make_paylog(self):
         pay_log = []
-        cal = CalculatePay(1013, 1063, 1.25, 22)　# 時給情報を入力
+        cal = CalculatePay(1013, 1063, 1.25, 22) # 時給情報を入力
         
         # eventからバイトの開始時間と終了時間を取り出し，給料計算する
         for event in self.events['items']:
