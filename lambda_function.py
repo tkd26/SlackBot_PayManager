@@ -163,15 +163,19 @@ class MakePayMsg():
                 else:
                     daypay_dir = {'date':stime.date(), 'month':stime.month+1, 'pay':daypay}
                 pay_log += [daypay_dir]
-        
+        pay_log = sorted(pay_log, key=lambda x:x['date'])
         return pay_log
             
     # ---来月の給料を表示するメッセージを作成---
     def monthpay(self):
         mpay = 0
         for i in self.pay_log:
-            if i['month'] == (self.now.month+1):
-                mpay += i['pay']
+            if self.now.month!=12:
+                if i['month'] == (self.now.month+1):
+                    mpay += i['pay']
+            else:
+                if i['month'] == 1:
+                    mpay += i['pay']
         return mpay
 
     # ---1年分の給料を表示するメッセージを作成---
